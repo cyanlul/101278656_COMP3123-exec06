@@ -1,11 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const noteRouter = require('./routes/NoteRoutes')
 const mongoose = require('mongoose');
 
-const DB_URL = "mongodb+srv://dilan:password1@comp3123.e5acu.mongodb.net/test"
+const DB_URL = "mongodb+srv://dilan:jeffhardymay1@comp3123.e5acu.mongodb.net/test?authSource=admin&replicaSet=atlas-mf8apm-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true"
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(noteRouter)
 
 mongoose.Promise = global.Promise;
 
@@ -19,7 +21,6 @@ mongoose.connect(DB_URL, {
     console.log('Could not connect to the database. Exiting now...', err);
     process.exit();
 });
-
 
 app.get('/', (req, res) => {
     res.send("<h1>Welcome to Note taking application - Week06 Exercise</h1>");
